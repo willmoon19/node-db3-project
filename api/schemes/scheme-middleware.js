@@ -30,7 +30,14 @@ const checkSchemeId = async (req, res, next) => {
   }
 */
 const validateScheme = (req, res, next) => {
-
+  if(req.body.scheme_name === undefined || 
+    typeof req.body.scheme_name !== 'string' ||
+    !req.body.scheme_name.trim()
+    ) {
+      res.status(400).json({message: "invalid scheme_name"})
+    } else {
+      next()
+    }
 }
 
 /*
@@ -43,7 +50,16 @@ const validateScheme = (req, res, next) => {
   }
 */
 const validateStep = (req, res, next) => {
-
+  if(req.body.instructions === undefined || 
+    typeof req.body.instructions !== 'string' ||
+    !req.body.instructions.trim() ||
+    typeof req.body.step_number !== 'number' ||
+    req.body.step_number < 1
+    ) {
+      res.status(400).json({message: "invalid step"})
+    } else {
+      next()
+    }
 }
 
 module.exports = {
