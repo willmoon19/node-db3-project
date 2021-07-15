@@ -142,7 +142,7 @@ async function add(scheme) { // EXERCISE D
 }
 
  function addStep(scheme_id, step) { // EXERCISE E
-  db('steps').insert({
+  return db('steps').insert({
     ...step,
     scheme_id
   })
@@ -151,7 +151,7 @@ async function add(scheme) { // EXERCISE D
     .join('schemes as sc', 'sc.scheme_id', 'st.scheme_id' )
     .select('step_id', 'step_number', 'instructions', 'scheme_name')
     .orderBy('step_number')
-    .where('scheme_id', scheme_id)
+    .where('sc.scheme_id', scheme_id)
   })
   /*
     1E- This function adds a step to the scheme with the given `scheme_id`
